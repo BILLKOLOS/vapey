@@ -1,12 +1,16 @@
 import axios from 'axios';
 
+// Use environment variable for API URL, fallback to localhost for development
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
 // Create axios instance with default configuration
-export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+const api = axios.create({
+  baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // Important for cookies
 });
 
 // Request interceptor to add auth token
@@ -23,88 +27,71 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle common errors
+// Response interceptor to handle errors
 api.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
     if (error.response?.status === 401) {
-      // Unauthorized - clear token and redirect to login
+      // Token expired or invalid
       localStorage.removeItem('token');
-      localStorage.removeItem('userId');
+      localStorage.removeItem('user');
       window.location.href = '/login';
-    } else if (error.response?.status === 403) {
-      // Forbidden
-      console.error('Access forbidden');
-    } else if (error.response?.status >= 500) {
-      // Server error
-      console.error('Server error:', error.response.data);
     }
-    
     return Promise.reject(error);
   }
 );
 
-// API endpoints
-export const endpoints = {
-  // Auth
-  auth: {
-    login: '/auth/login',
-    register: '/auth/register',
-    logout: '/auth/logout',
-    me: '/auth/me',
-    profile: '/auth/profile',
-    password: '/auth/password',
-  },
-  
-  // Investments
-  investments: {
-    list: '/investments',
-    create: '/investments',
-    stats: '/investments/stats',
-    withdrawROI: '/investments/withdraw-roi',
-    withdrawReferral: '/investments/withdraw-referral',
-  },
-  
-  // Referrals
-  referrals: {
-    list: '/referrals',
-    stats: '/referrals/stats',
-  },
-  
-  // Notifications
-  notifications: {
-    list: '/notifications',
-    markAsRead: (id) => `/notifications/${id}/read`,
-    markAllAsRead: '/notifications/read-all',
-    delete: (id) => `/notifications/${id}`,
-  },
-  
-  // Transactions
-  transactions: {
-    list: '/transactions',
-    details: (id) => `/transactions/${id}`,
-  },
-  
-  // Leaderboard
-  leaderboard: {
-    list: '/leaderboard',
-    userRank: '/leaderboard/rank',
-  },
-  
-  // Achievements
-  achievements: {
-    list: '/achievements',
-    unlock: (id) => `/achievements/${id}/unlock`,
-  },
-  
-  // Support
-  support: {
-    tickets: '/support/tickets',
-    createTicket: '/support/tickets',
-    messages: (ticketId) => `/support/tickets/${ticketId}/messages`,
-  },
+// Auth API calls
+export const authAPI = {
+  register: (userData) => api.post('/auth/register', userData),
+  login: (credentials) => api.post('/auth/login', credentials),
+  logout: () => api.post('/auth/logout'),
+  getProfile: () => api.get('/auth/profile'),
+  updateProfile: (data) => api.put('/auth/profile', data),
+  changePassword: (data) => api.put('/auth/change-password', data),
+};
+
+// User API calls
+export const userAPI = {
+  getUsers: () => api.get('/users'),
+  getUserById: (id) => api.get(`/users/${id}`),
+  updateUser: (id, data) => api.put(`/users/${id}`, data),
+  deleteUser: (id) => api.delete(`/users/${id}`),
+};
+
+// Investment API calls
+export const investmentAPI = {
+  getInvestments: () => api.get('/investments'),
+  getInvestmentById: (id) => api.get(`/investments/${id}`),
+  createInvestment: (data) => api.post('/investments', data),
+  updateInvestment: (id, data) => api.put(`/investments/${id}`, data),
+  deleteInvestment: (id) => api.delete(`/investments/${id}`),
+  getInvestmentPlans: () => api.get('/investments/plans'),
+};
+
+// Transaction API calls
+export const transactionAPI = {
+  getTransactions: () => api.get('/transactions'),
+  getTransactionById: (id) => api.get(`/transactions/${id}`),
+  createTransaction: (data) => api.post('/transactions', data),
+  getTransactionHistory: () => api.get('/transactions/history'),
+};
+
+// Referral API calls
+export const referralAPI = {
+  getReferrals: () => api.get('/referrals'),
+  getReferralStats: () => api.get('/referrals/stats'),
+  generateReferralCode: () => api.post('/referrals/generate-code'),
+};
+
+// Notification API calls
+export const notificationAPI = {
+  getNotifications: () => api.get('/notifications'),
+  markAsRead: (id) => api.put(`/notifications/${id}/read`),
+  markAllAsRead: () => api.put('/notifications/mark-all-read'),
+  deleteNotification: (id) => api.delete(`/notifications/${id}`),
 };
 
 export default api; 

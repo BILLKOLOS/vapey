@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: mongare-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://mongare-backend.onrender.com
+      - key: REACT_APP_ENVIRONMENT
+        value: production 
