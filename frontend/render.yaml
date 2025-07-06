@@ -7,6 +7,6 @@ services:
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://mongare-backend.onrender.com
+        value: https://vapey-backend.onrender.com
       - key: REACT_APP_ENVIRONMENT
         value: production 
