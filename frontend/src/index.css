@@ -1,0 +1,582 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    min-height: 100vh;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Dashboard Layout */
+  .dashboard-container {
+    @apply space-y-6;
+  }
+
+  .dashboard-grid {
+    @apply grid grid-cols-1 xl:grid-cols-3 gap-6;
+  }
+
+  .left-column {
+    @apply xl:col-span-2 space-y-6;
+  }
+
+  .right-column {
+    @apply space-y-6;
+  }
+
+  .bottom-section {
+    @apply mt-8;
+  }
+
+  .social-grid {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+  }
+
+  .section-card {
+    @apply bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-2xl;
+  }
+
+  .card {
+    @apply bg-white/10 backdrop-blur-xl rounded-xl p-6 border border-white/20 shadow-2xl;
+  }
+
+  .header {
+    @apply bg-white/10 backdrop-blur-xl rounded-xl p-6 shadow-2xl flex justify-between items-center border border-white/20;
+  }
+
+  .logo {
+    @apply text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent;
+  }
+
+  .user-info {
+    @apply flex items-center gap-4;
+  }
+
+  .balance {
+    @apply bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg font-semibold text-sm;
+  }
+
+  .user-avatar {
+    @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white p-2 rounded-lg w-10 h-10 flex items-center justify-center font-semibold text-sm;
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    @apply grid grid-cols-2 gap-4;
+  }
+
+  .stat-item {
+    @apply bg-gradient-to-br from-white/10 to-white/5 p-4 rounded-lg text-center border border-white/10;
+  }
+
+  .stat-value {
+    @apply text-2xl font-bold text-white mb-1;
+  }
+
+  .stat-label {
+    @apply text-gray-300 text-xs;
+  }
+
+  .stat-icon {
+    @apply text-2xl mb-2;
+  }
+
+  .status-badge {
+    @apply flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .status-badge.active {
+    @apply bg-green-500/20 text-green-300 border border-green-500/30;
+  }
+
+  .status-dot {
+    @apply w-2 h-2 bg-green-400 rounded-full animate-pulse;
+  }
+
+  .metrics-grid {
+    @apply grid grid-cols-2 gap-3;
+  }
+
+  .metric-item {
+    @apply bg-white/5 p-3 rounded-lg border border-white/10;
+  }
+
+  .metric-label {
+    @apply text-gray-300 text-xs mb-1;
+  }
+
+  .metric-value {
+    @apply text-sm font-semibold;
+  }
+
+  /* Form Elements */
+  .input-group {
+    @apply flex flex-col gap-2;
+  }
+
+  .input-group label {
+    @apply font-semibold text-gray-200 text-sm;
+  }
+
+  .input-group input {
+    @apply p-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 transition-all duration-300 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20;
+  }
+
+  .btn {
+    @apply px-4 py-3 rounded-lg font-semibold transition-all duration-300 cursor-pointer border-none text-sm;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  .btn-success {
+    @apply bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  .btn-warning {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  .btn-danger {
+    @apply bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5;
+  }
+
+  /* Investment Form */
+  .investment-form {
+    @apply space-y-4;
+  }
+
+  .investment-badge {
+    @apply flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs font-semibold border border-green-500/30;
+  }
+
+  .badge-icon {
+    @apply text-sm;
+  }
+
+  .amount-input-container {
+    @apply relative flex items-center;
+  }
+
+  .currency-symbol {
+    @apply absolute left-3 text-gray-300 font-semibold;
+  }
+
+  .amount-input {
+    @apply pl-8;
+  }
+
+  .amount-limits {
+    @apply flex justify-between text-xs text-gray-400 mt-1;
+  }
+
+  .limit-text {
+    @apply text-gray-400;
+  }
+
+  .investment-preview {
+    @apply bg-white/5 p-4 rounded-lg border border-white/10;
+  }
+
+  .preview-title {
+    @apply text-white font-semibold mb-3;
+  }
+
+  .preview-grid {
+    @apply grid grid-cols-2 gap-3;
+  }
+
+  .preview-item {
+    @apply text-center;
+  }
+
+  .preview-label {
+    @apply text-gray-300 text-xs mb-1;
+  }
+
+  .preview-value {
+    @apply text-sm font-semibold;
+  }
+
+  .payment-info {
+    @apply bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 p-4 rounded-lg;
+  }
+
+  .payment-header {
+    @apply mb-3;
+  }
+
+  .payment-details {
+    @apply space-y-3;
+  }
+
+  .payment-badge {
+    @apply inline-flex items-center gap-2 bg-green-600/20 text-green-300 px-3 py-1 rounded-full text-xs font-semibold border border-green-500/30;
+  }
+
+  .payment-features {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .feature-item {
+    @apply text-xs text-gray-300;
+  }
+
+  .invest-btn {
+    @apply w-full btn btn-primary py-4;
+  }
+
+  .btn-content {
+    @apply flex items-center justify-center gap-2;
+  }
+
+  .btn-icon {
+    @apply text-lg;
+  }
+
+  /* Referral System */
+  .referral-section {
+    @apply bg-gradient-to-br from-green-500/20 to-emerald-600/20 border border-green-500/30;
+  }
+
+  .referral-levels {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 mt-4;
+  }
+
+  .level-card {
+    @apply bg-white/10 p-4 rounded-lg text-center backdrop-blur-sm border border-white/10;
+  }
+
+  .level-percentage {
+    @apply text-3xl font-bold mb-2 text-green-400;
+  }
+
+  .level-description {
+    @apply text-gray-300 text-xs;
+  }
+
+  /* Withdrawal Section */
+  .withdrawal-section {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+  }
+
+  .withdrawal-status {
+    @apply flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs font-semibold border border-green-500/30;
+  }
+
+  .withdrawal-info {
+    @apply bg-white/5 p-4 rounded-lg border border-white/10;
+  }
+
+  .info-grid {
+    @apply grid grid-cols-3 gap-4;
+  }
+
+  .info-item {
+    @apply text-center;
+  }
+
+  .info-label {
+    @apply text-gray-300 text-xs block mb-1;
+  }
+
+  .info-value {
+    @apply text-white font-semibold text-sm;
+  }
+
+  .withdrawal-pool {
+    @apply bg-white/5 p-4 rounded-lg border border-white/10;
+  }
+
+  .pool-header {
+    @apply flex items-center justify-between mb-4;
+  }
+
+  .pool-title {
+    @apply text-white font-semibold;
+  }
+
+  .pool-icon {
+    @apply text-2xl;
+  }
+
+  .pool-balance {
+    @apply text-center mb-4;
+  }
+
+  .balance-amount {
+    @apply text-2xl font-bold text-white;
+  }
+
+  .balance-label {
+    @apply text-gray-300 text-xs;
+  }
+
+  .withdrawal-form {
+    @apply space-y-3;
+  }
+
+  .form-label {
+    @apply text-gray-200 text-sm font-semibold;
+  }
+
+  .withdrawal-form input {
+    @apply w-full p-2 bg-white/10 border border-white/20 rounded text-white placeholder-gray-400;
+  }
+
+  .withdraw-btn {
+    @apply w-full btn btn-success;
+  }
+
+  .withdrawal-status-info {
+    @apply mt-6 space-y-2;
+  }
+
+  .status-item {
+    @apply flex items-center gap-2 text-sm text-gray-300;
+  }
+
+  .status-icon {
+    @apply text-yellow-400;
+  }
+
+  .status-text {
+    @apply text-gray-300;
+  }
+
+  /* Progress Bar */
+  .progress-bar {
+    @apply w-full h-2 bg-white/10 rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300;
+  }
+
+  .progress-info {
+    @apply flex justify-between text-xs text-gray-300 mt-2;
+  }
+
+  /* Floating Elements */
+  .floating-icons {
+    @apply fixed right-5 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50;
+  }
+
+  .floating-btn {
+    @apply w-14 h-14 rounded-full border-none cursor-pointer flex items-center justify-center text-xl shadow-lg transition-all duration-300 hover:scale-110;
+  }
+
+  .support-btn {
+    @apply bg-gradient-to-r from-green-500 to-emerald-600 text-white;
+  }
+
+  .notification-btn {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-600 text-white relative;
+  }
+
+  .security-btn {
+    @apply bg-gradient-to-r from-blue-500 to-purple-600 text-white;
+  }
+
+  .notification-badge {
+    @apply absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center;
+  }
+
+  /* Modals */
+  .modal {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center;
+  }
+
+  .modal-content {
+    @apply bg-gray-800 rounded-xl p-6 max-w-lg w-11/12 max-h-[80vh] overflow-y-auto relative border border-white/20;
+  }
+
+  .close-btn {
+    @apply absolute top-4 right-4 bg-none border-none text-xl cursor-pointer text-gray-400 hover:text-white;
+  }
+
+  /* News Ticker */
+  .news-ticker {
+    @apply bg-white/10 backdrop-blur-xl rounded-lg p-3 overflow-hidden relative border border-white/20;
+  }
+
+  .ticker-content {
+    @apply whitespace-nowrap animate-scroll text-sm text-gray-200;
+  }
+
+  /* Live Stats */
+  .live-stats {
+    @apply fixed bottom-5 left-5 bg-black/80 text-white p-3 rounded-lg text-xs backdrop-blur-sm border border-white/20;
+  }
+
+  /* Leaderboard */
+  .leaderboard {
+    @apply bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border border-yellow-500/30;
+  }
+
+  .leader-item {
+    @apply flex justify-between items-center p-3 bg-white/10 rounded-lg mb-2 border border-white/10;
+  }
+
+  .rank-badge {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-2 py-1 rounded text-xs font-semibold;
+  }
+
+  /* Achievements */
+  .achievements {
+    @apply bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30;
+  }
+
+  .achievement-badge {
+    @apply bg-white/10 p-3 rounded-lg text-center border border-white/10;
+  }
+
+  .achievement-badge.locked {
+    @apply opacity-50;
+  }
+
+  .achievement-icon {
+    @apply text-2xl mb-2;
+  }
+
+  /* Alerts */
+  .alert {
+    @apply p-3 rounded-lg mb-4 text-sm;
+  }
+
+  .alert-success {
+    @apply bg-green-500/20 border border-green-500/30 text-green-300;
+  }
+
+  .alert-error {
+    @apply bg-red-500/20 border border-red-500/30 text-red-300;
+  }
+
+  .alert-warning {
+    @apply bg-yellow-500/20 border border-yellow-500/30 text-yellow-300;
+  }
+
+  .alert-info {
+    @apply bg-blue-500/20 border border-blue-500/30 text-blue-300;
+  }
+
+  /* Loading Spinner */
+  .loading-spinner {
+    @apply flex items-center justify-center;
+  }
+
+  .spinner-ring {
+    @apply w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin;
+  }
+
+  .spinner-small .spinner-ring {
+    @apply w-4 h-4;
+  }
+
+  .spinner-medium .spinner-ring {
+    @apply w-6 h-6;
+  }
+
+  .spinner-large .spinner-ring {
+    @apply w-8 h-8;
+  }
+
+  /* Animations */
+  .animate-scroll {
+    animation: scroll 20s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .dashboard-grid {
+      @apply grid-cols-1;
+    }
+    
+    .left-column, .right-column {
+      @apply col-span-1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      @apply px-4;
+    }
+    
+    .stats-grid {
+      @apply grid-cols-1;
+    }
+    
+    .referral-levels {
+      @apply grid-cols-1;
+    }
+    
+    .withdrawal-section {
+      @apply grid-cols-1;
+    }
+  }
+}
+
+@layer utilities {
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+  }
+} 
